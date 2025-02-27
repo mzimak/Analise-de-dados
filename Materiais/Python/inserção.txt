@@ -1,0 +1,21 @@
+
+select 'insert into tabela values ('
+||'tabela_SQ01.NEXTVAL'||','
+||'''7000'''||','
+||cast(so.active as integer)||','
+||'''AT'''||','
+||''''||cast(so.msisdn as varchar)||''''||','
+||'null'||','
+||'null'||','
+||'''REALWAVE'''||','
+||'TO_DATE('''||to_char(so.created_at :: date, 'yyyy-mm-dd HH:MM:SS'||''',')||'''YYYY-MM-DD HH24:MI:SS'')'||','
+||'''REALWAVE'''||','
+||'sysdate'||','
+||'''REALWAVE'''||')'||';'
+
+FROM tab.service_order so 
+inner join tab.customer cl
+on so.customer_id = cl.id
+
+where so.active = true
+limit 300;
