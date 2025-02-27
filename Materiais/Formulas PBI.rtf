@@ -1,0 +1,202 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22 licencas RW Sem Anterior = \par
+ CALCULATE(\par
+\tab 500000 - SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status] IN \{ "INACTIVATING"; "ACTIVE" \};\par
+    LASTDATE(DATEADD(tb_clientes_ativos_semanal[Data];-7;DAY)))\par
+===================================\par
+Soma de ativa\'e7\'f5es = sumx(tb_ativacoes_automaticas_manuais_diario;tb_ativacoes_automaticas_manuais_diario[Automaticas]+tb_ativacoes_automaticas_manuais_diario[Manuais])\par
+===================================\par
+DataAnterTitulo = CALCULATE(VALUEs(tb_ativacoes_cancelamentos_semanal[semana]);\par
+LASTDATE(dateadd(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem];-1;DAY)))\par
+===================================\par
+DataAtualTitulo = CALCULATE(VALUEs(tb_ativacoes_cancelamentos_semanal[semana]);\par
+LASTDATE(dateadd(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem];0;DAY)))\par
+===================================\par
+MediaAtivacoesSemAnt = CALCULATE(sum(tb_ativacoes_cancelamentos_semanal[Ativacoes Sem])/7;\par
+LASTDATE(dateadd(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem];-1;DAY)))\par
+===================================\par
+MediaAtivSemAtual = calculate(VALUES(tb_ativacoes_cancelamentos_semanal[Ativacoes Sem])/7;LASTDATE(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem]))\par
+===================================\par
+NovosClientesSemAnter = CALCULATE(sum(tb_ativacoes_cancelamentos_semanal[Ativacoes Sem]);\par
+LASTDATE(dateadd(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem];-1;DAY)))\par
+===================================\par
+PrimDiaSem = LASTDATE(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem])\par
+===================================\par
+Media_de_Entr_Recarga = CALCULATE(MAX(tb_PAGTO_SALDO_RECARGA_AGREGADO[Media_da_semana]);(LASTDATE(tb_PAGTO_SALDO_RECARGA_AGREGADO[Data_do _registro])))\par
+===================================\par
+Medida = [Media_de_Entr_Recarga] - 30\par
+===================================\par
+Reativacoes_sem_atual = CALCULATE([soma reativacoes];\par
+LASTDATE(tb_reativacoes_semanal[data_de_registro]))\par
+===================================\par
+Media Convidado = CALCULATE(COUNT(mgm[customer_id])/31;\par
+mgm[mgm_type] == "INVITED")\par
+===================================\par
+MEMBROS = CALCULATE(COUNT(mgm[customer_id]);\par
+mgm[mgm_type] == "MEMBER")\par
+===================================\par
+Percentual do dia = tb_ativacoes_automaticas_manuais_diario[Total do dia] / tb_ativacoes_automaticas_manuais_diario[Total geral]\par
+===================================\par
+Clientes na Base = CALCULATE(\par
+\tab SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status] IN \{ "ACTIVE" ;"ADHESION";"CANCELING";"CANCELLED";"INACTIVATING";"INACTIVE";"PENDING"\};\par
+    LASTDATE(tb_clientes_ativos_semanal[Data]))\par
+===================================\par
+Clientes na Base Sem Anterior = CALCULATE(\par
+\tab SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status] IN \{ "ACTIVE" ;"ADHESION";"CANCELING";"CANCELLED";"INACTIVATING";"INACTIVE";"PENDING"\};\par
+    LASTDATE(DATEADD(tb_clientes_ativos_semanal[Data];-7;DAY)))\par
+===================================\par
+mediaAtivacao = tb_ativacoes_cancelamentos_semanal[Ativacoes Sem] /7\par
+\par
+===================================\par
+Clientes Ativos = CALCULATE(\par
+\tab SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status] IN \{ "INACTIVATING"; "ACTIVE" \};\par
+    LASTDATE(tb_clientes_ativos_semanal[Data]))\par
+===================================\par
+Clientes Ativos Sem Anterior = CALCULATE(\par
+\tab SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status] IN \{ "INACTIVATING"; "ACTIVE" \};\par
+    LASTDATE(DATEADD(tb_clientes_ativos_semanal[Data];-7;DAY))\par
+    )\par
+===================================\par
+total para INACTIVATING ou ACTIVE = \par
+CALCULATE(\par
+\tab SUM('tb_clientes_ativos_semanal'[total]);\par
+\tab 'tb_clientes_ativos_semanal'[status]\par
+\tab\tab IN \{ "INACTIVATING"; "ACTIVE" \};\par
+        FILTER(tb_clientes_ativos_semanal;\par
+        LASTDATE(tb_clientes_ativos_semanal[Data]))\par
+)\par
+===================================\par
+conta convidados = CALCULATE(\par
+    COUNT(tb_mgm[tipo_membro]);\par
+    tb_mgm[tipo_membro]="INVITED")\par
+===================================\par
+CTA Convidados = \par
+CALCULATE(\par
+COUNT(tb_mgm[tipo_membro]);\par
+tb_mgm[tipo_membro]="INVITED")\par
+===================================\par
+CTA Member = \par
+CALCULATE(\par
+COUNT(tb_mgm[tipo_membro]);\par
+tb_mgm[tipo_membro]="MEMBER")\par
+===================================\par
+MGM Total Geral = sum(tb_mgm[total])\par
+===================================\par
+Agrupamento Confirmado Sem Anterior = \par
+CALCULATE(sum(tb_migracao_pagamento_cliente[Total]);\par
+LASTDATE(dateadd(tb_migracao_pagamento_cliente[indice];-1;DAY));\par
+tb_migracao_pagamento_cliente[status_pagamento] == "Confirmado")\par
+===================================\par
+Agrupamento Nao_Confirmado Sem Anterior = \par
+CALCULATE(sum(tb_migracao_pagamento_cliente[Total]);\par
+LASTDATE(dateadd(tb_migracao_pagamento_cliente[indice];-1;DAY));\par
+tb_migracao_pagamento_cliente[status_pagamento] <> "Confirmado")\par
+===================================\par
+Soma Falha Semana Atual = \par
+CALCULATE(sum(tb_migracao_pagamento_cliente[Total]);\par
+tb_migracao_pagamento_cliente[status_pagamento] <> "Confirmado")\par
+====================================\par
+Soma Sucesso Sem Atual = \par
+CALCULATE(sum(tb_migracao_pagamento_cliente[Total]);\par
+tb_migracao_pagamento_cliente[status_pagamento] == "Confirmado")\par
+========================================\par
+Soma Sucesso Sem Atual = \par
+CALCULATE(sum(tb_migracao_pagamento_cliente[Total]);\par
+tb_migracao_pagamento_cliente[status_pagamento] == "Confirmado")\par
+=======================================\par
+% Nao PAGO = \par
+ DIVIDE(SUMX(tb_renovacao_pagamento_cliente;\par
+        tb_renovacao_pagamento_cliente[Soma PAGO] + tb_renovacao_pagamento_cliente[Soma geral]);\par
+        tb_renovacao_pagamento_cliente[Soma geral])\par
+========================================\par
+indice = LASTDATE(dateadd(tb_renovacao_pagamento_cliente[Data];-1;DAY))\par
+========================================\par
+Soma PAGO = SUMX(\par
+        FILTER(\par
+            tb_renovacao_pagamento_cliente;\par
+    tb_renovacao_pagamento_cliente[status_pagamento] == "PAGO");\par
+    tb_renovacao_pagamento_cliente[total])\par
+=======================================\par
+total1a3dias = SUMX(FILTER(tb_renovacao_ultimos_7_dias;\par
+tb_renovacao_ultimos_7_dias[dias_atraso (grupos) (grupos)] = "1\'ba2\'ba3\'ba");tb_renovacao_ultimos_7_dias[total])\par
+=====================================\par
+__horasDaxSerial = \par
+    var horasDaxSerial = INT(tb_tempo_medio_ativacao_reduzido_FULL[_Soma_HMS_Seriais] / 3600)\par
+    RETURN horasDaxSerial\par
+======================================\par
+__minutosDaxSerial = \par
+    var minutosDaxSerial = INT(mod(tb_tempo_medio_ativacao_reduzido_FULL[_Soma_HMS_Seriais] - (tb_tempo_medio_ativacao_reduzido_FULL[__horasDaxSerial] * 3600); 3600) /60)\par
+    RETURN minutosDaxSerial\par
+=======================================\par
+__segundosDaxSerial = ROUNDUP(MOD(MOD(tb_tempo_medio_ativacao_reduzido_FULL[_Soma_HMS_Seriais] - (tb_tempo_medio_ativacao_reduzido_FULL[__horasDaxSerial] - 3600); 3600);60);0)\par
+======================================\par
+_Soma_HMS_Seriais = time(0;4881;0)\par
+======================================\par
+HorasEmSegundos_Serial = (tb_tempo_medio_ativacao_reduzido_FULL[Hora])*3600\par
+======================================\par
+menor que 5 minutos = CALCULATE(\par
+    MEDIAN(tb_tempo_medio_ativacao_reduzido_FULL[Minuto]);\par
+    FILTER(\par
+        tb_tempo_medio_ativacao_reduzido_FULL;\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Minuto] < 59\par
+    ))\par
+===============================================\par
+MinutosEmSegundos_Serial = (tb_tempo_medio_ativacao_reduzido_FULL[Minuto]*60)\par
+==================================================\par
+Soma de HMS_em segundos_Seriais = ((tb_tempo_medio_ativacao_reduzido_FULL[HorasEmSegundos_Serial] + \par
+tb_tempo_medio_ativacao_reduzido_FULL[MinutosEmSegundos_Serial] + \par
+tb_tempo_medio_ativacao_reduzido_FULL[Segundo]))\par
+===================================================\par
+TMA-FULL = time(0;0;CALCULATE((AVERAGE(tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]))))\par
+==================================================\par
+TMA-FULL-SemanaAnterior = time(0;0;CALCULATE(\par
+    AVERAGE(\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]);\par
+    LASTDATE(\par
+    dateadd(tb_tempo_medio_ativacao_reduzido_FULL[indice];-1;DAY))\par
+))\par
+====================================================\par
+TMAate4horas = time(0;0;\par
+CALCULATE(\par
+    AVERAGE(\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]);\par
+        FILTER(tb_tempo_medio_ativacao_reduzido_FULL;tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais] <= 14399)\par
+))\par
+=====================================================\par
+TMAate4horas-SemanaAnterior = time(0;0;\par
+CALCULATE(\par
+    AVERAGE(\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]);\par
+    FILTER(tb_tempo_medio_ativacao_reduzido_FULL;tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais] <= 14399);\par
+    LASTDATE(dateadd(tb_tempo_medio_ativacao_reduzido_FULL[indice];-1;DAY))\par
+))\par
+==========================================================\par
+TMAate5minutos = time(0;0;\par
+CALCULATE(\par
+    AVERAGE(\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]);\par
+        FILTER(tb_tempo_medio_ativacao_reduzido_FULL;tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais] <= 299)\par
+))\par
+==========================================================\par
+TMAate5minutos-SemanaAnterior = time(0;0;\par
+CALCULATE(\par
+    AVERAGE(\par
+        tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais]);\par
+    FILTER(tb_tempo_medio_ativacao_reduzido_FULL;tb_tempo_medio_ativacao_reduzido_FULL[Soma de HMS_em segundos_Seriais] <= 299);\par
+    LASTDATE(dateadd(tb_tempo_medio_ativacao_reduzido_FULL[indice];-1;DAY))\par
+))\par
+==============================================================\par
+%TOTAL DO DIA ate_5_min = CALCULATE(tb_tempo_medio_ativacao_semanal[_md_SOMA_ate_5_minutos]/[Total geral])\par
+============================================================\par
+percentual apos_4_horas = tb_TMA_SEM_AGREGADO[soma_apos_4_horas] / tb_TMA_SEM_AGREGADO[soma_do dia]\par
+===========================================================\par
+percentual ate_5_minutos = tb_TMA_SEM_AGREGADO[soma_ate_5_minutos] / tb_TMA_SEM_AGREGADO[soma_do dia]\par
+============================================================\par
+}
+ 
