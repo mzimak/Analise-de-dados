@@ -8,9 +8,9 @@ lic RW Sem Anterior =
 	'tb_clientes_ativos_semanal'[status] IN { "INACTIVATING"; "ACTIVE" };
     LASTDATE(DATEADD(tb_clientes_ativos_semanal[Data];-7;DAY)))
 
-===================================\par
-Soma de ativa\'e7\'f5es = sumx(tb_ativacoes_automaticas_manuais_diario;tb_ativacoes_automaticas_manuais_diario[Automaticas]+tb_ativacoes_automaticas_manuais_diario[Manuais])\par
-===================================\par
+===================================
+Soma de ativa\'e7\'f5es = sumx(tb_ativacoes_automaticas_manuais_diario;tb_ativacoes_automaticas_manuais_diario[Automaticas]+tb_ativacoes_automaticas_manuais_diario[Manuais])
+===================================
 DataAnterTitulo = CALCULATE(VALUEs(tb_ativacoes_cancelamentos_semanal[semana]);\par
 LASTDATE(dateadd(tb_ativacoes_cancelamentos_semanal[indice_ativ_sem];-1;DAY)))\par
 ===================================\par
